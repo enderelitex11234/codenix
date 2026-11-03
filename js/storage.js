@@ -1,0 +1,10 @@
+window.CX={apps:{},
+DB:{db:null,mem:0,m:{},
+open(){return new Promise(ok=>{try{const r=indexedDB.open('codenix',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>{this.db=r.result;ok()};r.onerror=r.onblocked=()=>{this.mem=1;ok()}}catch(e){this.mem=1;ok()}})},
+req(m,f){return new Promise((ok,no)=>{const t=this.db.transaction('kv',m),q=f(t.objectStore('kv'));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error)})},
+async get(k,d){if(this.mem)return this.m[k]===undefined?d:this.m[k];const v=await this.req('readonly',s=>s.get(k));return v===undefined?d:v},
+set(k,v){if(this.mem){this.m[k]=v;return Promise.resolve()}return this.req('readwrite',s=>s.put(v,k))},
+async dump(){if(this.mem)return{...this.m};const o={};await this.req('readonly',s=>{s.openCursor().onsuccess=e=>{const c=e.target.result;if(c){o[c.key]=c.value;c.continue()}}});return o},
+clear(){if(this.mem){this.m={};return Promise.resolve()}return this.req('readwrite',s=>s.clear())}},
+esc:s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
+toast(m){const t=document.getElementById('toast');t.textContent=m;t.className='show';clearTimeout(t._t);t._t=setTimeout(()=>t.className='',2500)}};

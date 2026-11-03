@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>CODENIX Linux V4</title><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="css/main.css"></head><body data-wall="1">
+<div id="boot"><div class="logo">CODENIX</div><div class="bar"><i id="bp"></i></div><small>Linux V4 · browser simulation</small></div>
+<div id="login" hidden><div class="card"><div class="avatar">A</div><h2>admin</h2><input id="pw" type="password" placeholder="Password (demo: linux)" autocomplete="off"><button id="go">Log in</button><p id="err"></p><small>Browser-only login is local protection, not secure server authentication.</small></div></div>
+<div id="desktop" hidden><div id="icons"></div><div id="wins"></div><div id="menu" hidden></div>
+<div id="tb"><button id="start" title="Start menu">⬡</button><div id="tasks"></div><span id="clock"></span><button id="lock" title="Lock screen">🔒</button><button id="out" title="Log out">⏻</button></div></div>
+<div id="toast"></div>
+<script src="js/storage.js"></script><script src="js/filesystem.js"></script><script src="js/window-manager.js"></script><script src="js/settings.js"></script><script src="js/apps.js"></script><script src="js/main.js"></script>
+<script>setTimeout(function(){var b=document.getElementById('bp');if(!window.CX||!b||!b.style.width){document.querySelector('#boot small').textContent='Startup failed: css/ or js/ files not found. Upload the folder CONTENTS (index.html, css/, js/) to the repo root.'}},4000)</script>
+</body></html>
